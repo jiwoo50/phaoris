@@ -140,8 +140,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00955677, y: 0.6258204}
-  m_Size: {x: 0.5634594, y: 1.2516408}
+  m_Offset: {x: -0.03576851, y: 0.6146697}
+  m_Size: {x: 0.5529747, y: 1.2293394}
   m_Direction: 0
 --- !u!50 &503225884
 Rigidbody2D:
@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0147c5c6677b3f4e85616d11bbae007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
 --- !u!95 &503225888
 Animator:
   serializedVersion: 3
@@ -202,14 +203,14 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503225882}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0142765045, y: 0.6215781}
-  m_Size: {x: 0.55781937, y: 1.2431562}
+  m_Offset: {x: 0.03290558, y: 0.6679418}
+  m_Size: {x: 0.58927536, y: 1.3358836}
   m_Direction: 0
 --- !u!4 &715585161 stripped
 Transform:
@@ -6376,11 +6377,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de75560d63026844e85599d9ab798207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   movePower: 5
   jumpPower: 15
-  timeInvincible: 2
-  barrierprefab: {fileID: 0}
 --- !u!114 &907512211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6395,12 +6393,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrier: {fileID: 1191085881}
   barrierTime: 2
+--- !u!114 &907512212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907512209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93833c4151da3f4bbb65ba3cba7de6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!4 &907512214 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2683328301218006795, guid: 861040576eafbd342b0a50c8a27c19f6,
     type: 3}
   m_PrefabInstance: {fileID: 2683328302940012533}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &907512219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907512209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aaca5dfe8b720947b5d01ca0eaab60f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &927978992
 GameObject:
   m_ObjectHideFlags: 0
@@ -18946,7 +18969,7 @@ GameObject:
   - component: {fileID: 1191085882}
   m_Layer: 9
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19297,6 +19320,14 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1.2460418
       objectReference: {fileID: 0}
+    - target: {fileID: 907512216, guid: 861040576eafbd342b0a50c8a27c19f6, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.06289673
+      objectReference: {fileID: 0}
+    - target: {fileID: 907512216, guid: 861040576eafbd342b0a50c8a27c19f6, type: 3}
+      propertyPath: m_Size.x
+      value: 0.94494057
+      objectReference: {fileID: 0}
     - target: {fileID: 2683328301218006792, guid: 861040576eafbd342b0a50c8a27c19f6,
         type: 3}
       propertyPath: m_SpriteSortPoint
@@ -19391,6 +19422,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5041970854874629988, guid: c7c60f518952d8f42882510506487206,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8549699102503077132, guid: c7c60f518952d8f42882510506487206,
         type: 3}

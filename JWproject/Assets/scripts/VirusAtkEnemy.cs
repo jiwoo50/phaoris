@@ -6,7 +6,6 @@ public class VirusAtkEnemy : MonoBehaviour
 {
     Rigidbody2D rigidBody2D;
     Animator animator;
-    float nextMove = 1.0f;
     public float distance;
     public float atkDistance;
     public LayerMask isLayer;
@@ -24,14 +23,6 @@ public class VirusAtkEnemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigidBody2D.velocity = new Vector2(3.0f * nextMove, rigidBody2D.velocity.y);
-        Vector2 frontVector = new Vector2(rigidBody2D.position.x + nextMove * 0.4f, rigidBody2D.position.y);
-        RaycastHit2D raycast = Physics2D.Raycast(frontVector, Vector3.down, 1, LayerMask.GetMask("map"));
-        transform.localScale = new Vector3(-1.0f * nextMove, 1.0f, 1.0f);
-        if (raycast.collider == null)
-        {
-            nextMove = nextMove * (-1);
-        }
         
         RaycastHit2D attackRaycast = Physics2D.Raycast(transform.position, transform.localScale * -1, distance, isLayer);
         if (attackRaycast.collider != null)

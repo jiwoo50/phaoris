@@ -32,7 +32,6 @@ public class PlayerBarrierAttack : MonoBehaviour
     }
     void Fire()
     {
-        // GameObject barrierClone = (GameObject)Instantiate(barrier, barrierPosition.transform.position, Quaternion.identity);
         barrier.SetActive(true);
     }
 }
