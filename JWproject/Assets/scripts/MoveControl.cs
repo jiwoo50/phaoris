@@ -4,28 +4,22 @@ using UnityEngine;
 
 public class MoveControl : MonoBehaviour
 {
-    public int maxHealth = 3;
     public float movePower = 1.0f;
     public float jumpPower = 1.0f;
-    public float timeInvincible = 2.0f;
-    Rigidbody2D rigidBody2d;
-    Animator animator;
-    public GameObject barrierprefab;
+    
     Vector3 movement;
     bool isJumping = false;
     bool isWalking = false;
     bool isDown = false;
-    bool isInvincible=false;
-    float invincibleTimer;
-    int health = 3;
 
-    int i = 1;
+    Rigidbody2D rigidBody2d;
+    Animator animator;
     private void Start()
     {
         rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
-        health = maxHealth;
     }
+
     private void Update()
     {
         if (rigidBody2d.velocity.y < 0|| isDown==true)
@@ -33,20 +27,22 @@ public class MoveControl : MonoBehaviour
             animator.SetBool("isDown", true);
             animator.SetBool("isRunning", false);
         }
+
         Vector3 moveVelocity = Vector3.zero;
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
             if(isWalking)
             animator.SetBool("isRunning", false);
         }
+        
         else if (Input.GetAxisRaw("Horizontal") < 0)
         {
             moveVelocity = Vector3.left;
             transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
             if(isWalking)
             animator.SetBool("isRunning", true);
-            
         }
+        
         else if (Input.GetAxisRaw("Horizontal") > 0)
         {
             moveVelocity = Vector3.right;
@@ -56,7 +52,7 @@ public class MoveControl : MonoBehaviour
 
         }
         transform.position += moveVelocity * movePower * Time.deltaTime;
-        //rigidBody2d.velocity = new Vector2(moveVelocity.x*movePower, rigidBody2d.velocity.y);
+        
         if (Input.GetButtonDown("Jump")&&isJumping==false)
         {
             isJumping = true;
@@ -65,25 +61,14 @@ public class MoveControl : MonoBehaviour
             rigidBody2d.velocity = Vector2.zero;
             Vector2 jumpVelocity = new Vector2(0, jumpPower);
             rigidBody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
-        }/*
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Attack();
-        }*/
-        if (isInvincible)
-        {
-            invincibleTimer -= Time.deltaTime;
-            if (invincibleTimer <0)
-                isInvincible = false;
-            animator.SetBool("isHurt", false);
         }
-    }/*
-    void Attack()
-    {
-        GameObject projectileObject = Instantiate(barrierprefab, rigidBody2d.position + Vector2.up * 0.5f, Quaternion.identity);
-
-       Barrier barrier= projectileObject.GetComponent<Barrier>();
-    }*/
+        if (Input.GetKeyDown(KeyCode.DownArrow) && isJumping)
+        {
+            Debug.Log("downnnnn");
+            rigidBody2d.AddForce(Vector2.up *Physics2D.gravity.y*2,ForceMode2D.Impulse);
+            //rigidbody.AddForce(Vector3.down * forceGravity);
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 8 && rigidBody2d.velocity.y < 0)
@@ -93,40 +78,5 @@ public class MoveControl : MonoBehaviour
             isWalking = true;
         }
         
-        if (collision.gameObject.tag == "enemy" && !collision.isTrigger && !(rigidBody2d.velocity.y < -10f))
-        {
-            Vector2 attackedVelocity = Vector2.zero;
-            Debug.Log("hurt");
-            if (collision.gameObject.transform.position.x > transform.position.x)
-            {
-                attackedVelocity = new Vector2(-5f, 0f);
-            }
-            else
-            {
-                attackedVelocity = new Vector2(5f, 0f);
-            }
-            rigidBody2d.AddForce(attackedVelocity, ForceMode2D.Impulse);
-           
-      
-        }
-        
     }
-    
-    public void ChangeHealth(int amount)
-    {
-
-        if (amount < 0)
-        {
-           // Debug.Log("hurtttt");
-            animator.SetTrigger("hurt");
-            animator.SetBool("isHurt",true);
-            if (isInvincible) return;
-            isInvincible = true;
-            invincibleTimer = timeInvincible;
-        }
-        health --;
-
-        Debug.Log(health);
-    }
-
 }
