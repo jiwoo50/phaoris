@@ -33,7 +33,7 @@ public class VirusAtkEnemy : MonoBehaviour
             nextMove = nextMove * (-1);
         }
         
-        RaycastHit2D attackRaycast = Physics2D.Raycast(transform.position, transform.right * -1, distance, isLayer);
+        RaycastHit2D attackRaycast = Physics2D.Raycast(transform.position, transform.localScale * -1, distance, isLayer);
         if (attackRaycast.collider != null)
         {
             if (Vector2.Distance(transform.position, attackRaycast.collider.transform.position) < atkDistance)

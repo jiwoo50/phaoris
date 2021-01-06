@@ -15,10 +15,11 @@ public class MoveControl : MonoBehaviour
     bool isJumping = false;
     bool isWalking = false;
     bool isDown = false;
-    bool isInvincible;
+    bool isInvincible=false;
     float invincibleTimer;
     int health = 3;
-   
+
+    int i = 1;
     private void Start()
     {
         rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
@@ -55,6 +56,7 @@ public class MoveControl : MonoBehaviour
 
         }
         transform.position += moveVelocity * movePower * Time.deltaTime;
+        //rigidBody2d.velocity = new Vector2(moveVelocity.x*movePower, rigidBody2d.velocity.y);
         if (Input.GetButtonDown("Jump")&&isJumping==false)
         {
             isJumping = true;
@@ -63,68 +65,67 @@ public class MoveControl : MonoBehaviour
             rigidBody2d.velocity = Vector2.zero;
             Vector2 jumpVelocity = new Vector2(0, jumpPower);
             rigidBody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
-        }
+        }/*
         if (Input.GetKeyDown(KeyCode.C))
         {
             Attack();
-        }
+        }*/
         if (isInvincible)
         {
             invincibleTimer -= Time.deltaTime;
-            if (invincibleTimer < 0)
+            if (invincibleTimer <0)
                 isInvincible = false;
             animator.SetBool("isHurt", false);
         }
-    }
+    }/*
     void Attack()
     {
         GameObject projectileObject = Instantiate(barrierprefab, rigidBody2d.position + Vector2.up * 0.5f, Quaternion.identity);
 
        Barrier barrier= projectileObject.GetComponent<Barrier>();
-    }
+    }*/
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 8 && rigidBody2d.velocity.y < 0)
         {
             animator.SetBool("jumpFinish", true);
+            isJumping = false;
+            isWalking = true;
         }
-        isJumping = false;
-        isWalking = true;
+        
         if (collision.gameObject.tag == "enemy" && !collision.isTrigger && !(rigidBody2d.velocity.y < -10f))
         {
             Vector2 attackedVelocity = Vector2.zero;
+            Debug.Log("hurt");
             if (collision.gameObject.transform.position.x > transform.position.x)
             {
                 attackedVelocity = new Vector2(-5f, 0f);
             }
             else
+            {
                 attackedVelocity = new Vector2(5f, 0f);
+            }
             rigidBody2d.AddForce(attackedVelocity, ForceMode2D.Impulse);
-            health--;
+           
       
         }
         
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        isWalking = false;
-        isDown = true;
-    }
+    
     public void ChangeHealth(int amount)
     {
 
         if (amount < 0)
         {
+           // Debug.Log("hurtttt");
             animator.SetTrigger("hurt");
             animator.SetBool("isHurt",true);
             if (isInvincible) return;
             isInvincible = true;
             invincibleTimer = timeInvincible;
-
-            
         }
+        health --;
 
-        health -= amount;
         Debug.Log(health);
     }
 

@@ -4,28 +4,13 @@ using UnityEngine;
 
 public class Barrier : MonoBehaviour
 {
-    Rigidbody2D rigidbody2d;
-    float currentTime = 1.0f;
-    void Awake()
-    {
-        rigidbody2d = GetComponent<Rigidbody2D>();
-    }
 
-    
-
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        currentTime -= Time.deltaTime;
-        if (currentTime<=0)
+        //Debug.Log("TrigerOn");
+        if (collision.gameObject.tag == "enemy" )
         {
-            Destroy(gameObject);
+            Debug.Log("TrigerOn");
         }
-    }
-
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        
-
-        Destroy(gameObject);
     }
 }
