@@ -4,13 +4,32 @@ using UnityEngine;
 
 public class Barrier : MonoBehaviour
 {
-
+    public float damage = 1.0f;
+    public GameObject player;
+    public bool isBarrierOn = false;
+    MoveControl moveControl;
+    PlayerBarrierAttack playerBarrierAttack;
+    BarrierJump barrierJump;
+    private void Awake()
+    {
+        moveControl = player.GetComponent<MoveControl>();
+        playerBarrierAttack = player.GetComponent<PlayerBarrierAttack>();
+        barrierJump = player.GetComponent<BarrierJump>();
+    }
+    void OnDisable()
+    {
+        isBarrierOn = false;
+    }
+    void JumpTime()
+    {
+        isBarrierOn = true;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("TrigerOn");
-        if (collision.gameObject.tag == "enemy" )
+        if (collision.gameObject.tag == "enemy"&&playerBarrierAttack.BarrierState()&&!isBarrierOn)
         {
-            Debug.Log("TrigerOn");
+            moveControl.StampAndJump();
+            JumpTime();
         }
     }
 }

@@ -4,27 +4,45 @@ using UnityEngine;
 
 public class PatrolEnemy : MonoBehaviour
 {
-    public float damage=1f;
-    float nextMove=1.0f;
-    
-    Rigidbody2D rigidBody2D;
-    Animator animator;
+    public float rightMax = 4.0f;
+    public float leftMax = -4.0f;
+    public float setDirection = 3.0f;
+
+    float damage = 1.0f;
+    float saveDirection;
+    Vector3 moveVelocity=Vector3.right;
+    Vector3 pos;
     private void Awake()
     {
-        rigidBody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        pos = transform.position;
+        transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+        saveDirection = setDirection;
     }
-    
+
     void FixedUpdate()
     {
-        rigidBody2D.velocity = new Vector2(3.0f*nextMove, rigidBody2D.velocity.y);
-        Vector2 frontVector = new Vector2(rigidBody2D.position.x + nextMove * 0.4f, rigidBody2D.position.y);
-        RaycastHit2D raycast = Physics2D.Raycast(frontVector, Vector3.down, 1, LayerMask.GetMask("map"));
-        transform.localScale = new Vector3(-1.0f*nextMove, 1.0f, 1.0f);
-        if (raycast.collider == null)
+        transform.position += moveVelocity * setDirection * Time.deltaTime;
+
+        if (transform.position.x > pos.x + rightMax)
         {
-            nextMove = nextMove * (-1);
+            moveVelocity = Vector3.left;
+            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        }
+
+        else if (transform.position.x < pos.x + leftMax)
+        {
+            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            moveVelocity = Vector3.right;
         }
     }
-   
+
+    public float Damage()
+    {
+        return damage;
+    }
+
+    public float SaveDirection()
+    {
+        return saveDirection;
+    }
 }

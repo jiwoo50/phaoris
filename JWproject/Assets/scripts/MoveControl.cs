@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveControl : MonoBehaviour
+public class MoveControl: MonoBehaviour
 {
     public float movePower = 1.0f;
     public float jumpPower = 1.0f;
     
-    Vector3 movement;
     bool isJumping = false;
     bool isWalking = false;
     bool isDown = false;
+    Vector3 movement;
 
     Rigidbody2D rigidBody2d;
     Animator animator;
+    PlayerBarrierAttack playerBarrierAttack;
+
     private void Start()
     {
         rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
+        playerBarrierAttack = gameObject.GetComponent<PlayerBarrierAttack>();
     }
 
     private void Update()
@@ -53,7 +56,7 @@ public class MoveControl : MonoBehaviour
         }
         transform.position += moveVelocity * movePower * Time.deltaTime;
         
-        if (Input.GetButtonDown("Jump")&&isJumping==false)
+        if (IsJump() && isJumping==false)
         {
             isJumping = true;
             animator.SetTrigger("isJumping");
@@ -62,12 +65,10 @@ public class MoveControl : MonoBehaviour
             Vector2 jumpVelocity = new Vector2(0, jumpPower);
             rigidBody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && isJumping)
-        {
-            Debug.Log("downnnnn");
-            rigidBody2d.AddForce(Vector2.up *Physics2D.gravity.y*2,ForceMode2D.Impulse);
-            //rigidbody.AddForce(Vector3.down * forceGravity);
-        }
+    }
+    bool IsJump()
+    {
+        return Input.GetButtonDown("Jump");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -76,6 +77,19 @@ public class MoveControl : MonoBehaviour
             animator.SetBool("jumpFinish", true);
             isJumping = false;
             isWalking = true;
+        }
+        
+    }
+    public void StampAndJump()
+    {
+        if (playerBarrierAttack.BarrierState()&&(isJumping||rigidBody2d.velocity.y<0))
+        {
+            Vector2 attackedVelocity = Vector2.zero;
+            attackedVelocity = new Vector2(0, 5f);
+            rigidBody2d.AddForce(attackedVelocity * 3.5f, ForceMode2D.Impulse);
+
+            playerBarrierAttack.BarrierOff();
+            playerBarrierAttack.ChangeState(false);
         }
         
     }
