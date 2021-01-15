@@ -7,6 +7,7 @@ TagManager:
   - enemy
   - barrier
   - ground
+  - range
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - enemy
   - playerdamage
   - barrier
-  - 
+  - Confinder
   - 
   - 
   - 

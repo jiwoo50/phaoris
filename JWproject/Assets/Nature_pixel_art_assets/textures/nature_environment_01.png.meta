@@ -454,7 +454,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -466,7 +466,19 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -495,9 +507,9 @@ TextureImporter:
       name: nature_environment_01_1
       rect:
         serializedVersion: 2
-        x: 160
+        x: 161
         y: 336
-        width: 48
+        width: 47
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1997,8 +2009,8 @@ TextureImporter:
       name: nature_environment_01_71
       rect:
         serializedVersion: 2
-        x: 400
-        y: 144
+        x: 399
+        y: 142
         width: 48
         height: 48
       alignment: 0
