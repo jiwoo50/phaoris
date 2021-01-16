@@ -33,7 +33,7 @@ public class Virus : MonoBehaviour
         {
             HealthControl healthControl = collision.gameObject.GetComponent<HealthControl>();
             Destroy(this.gameObject);
-            healthControl.ChangeHealth(damage);
+            healthControl.Damage(damage);
             
         }
         else if (collision.gameObject.tag == "barrier" || collision.gameObject.tag == "ground")

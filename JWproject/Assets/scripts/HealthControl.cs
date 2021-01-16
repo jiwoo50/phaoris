@@ -13,7 +13,7 @@ public class HealthControl : MonoBehaviour
         health = maxHealth;
         infectionRate = maxInfectionRate;
     }
-    public void ChangeHealth(float damage)
+    public void Damage(float damage)
     {
         health-=damage*infectionRate;
     }
@@ -25,6 +25,14 @@ public class HealthControl : MonoBehaviour
             return true;
         }
         return false;
+    }
+    public void Recovery(float recovery)
+    {
+        health += recovery;
+    }
+    public float NowHealth()
+    {
+        return health;
     }
     
 }

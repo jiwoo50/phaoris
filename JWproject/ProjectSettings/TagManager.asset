@@ -8,6 +8,9 @@ TagManager:
   - barrier
   - ground
   - range
+  - potion
+  - goldCoin
+  - blueCoin
   layers:
   - Default
   - TransparentFX
@@ -23,8 +26,8 @@ TagManager:
   - playerdamage
   - barrier
   - Confinder
-  - 
-  - 
+  - enemydie
+  - items
   - 
   - 
   - 

@@ -13,7 +13,9 @@ public class PlayerHit : MonoBehaviour
 
     bool isUnBeatTime = false;
     bool isBarrier = false;
-    
+
+    bool takecoin = false;
+    bool takepotion = false;
     void Start()
     {
         rigidBody2d = GetComponent<Rigidbody2D>();
@@ -39,8 +41,30 @@ public class PlayerHit : MonoBehaviour
         this.gameObject.layer = 9;
         yield return null;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    IEnumerator EarningCoins(Collider2D collision)
     {
+        takecoin = true;
+        CoinValue coinValue = collision.gameObject.GetComponent<CoinValue>();
+        PlayerCoins playerCoins = this.gameObject.GetComponent<PlayerCoins>();
+        playerCoins.Deposit(coinValue.ThisCoinValue());
+        Destroy(collision.gameObject, 0f);
+        yield return new WaitForSeconds(0.1f);
+        takecoin = false;
+        yield return null;
+    }
+    IEnumerator HealthRecover(Collider2D collision)
+    {
+        takepotion = true;
+        PotionRecovery potionRecovery = collision.gameObject.GetComponent<PotionRecovery>();
+        HealthControl playerHealth = this.GetComponent<HealthControl>();
+        playerHealth.Recovery(potionRecovery.Recovery());
+        Destroy(collision.gameObject, 0f);
+        yield return new WaitForSeconds(0.1f);
+        takepotion = false;
+        yield return null;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {;
         if (collision.gameObject.tag == "enemy" && !collision.isTrigger && !isUnBeatTime&& !IsBarrierOn())
         {
             PatrolEnemy patrolEnemy = collision.GetComponent<PatrolEnemy>();
@@ -51,10 +75,19 @@ public class PlayerHit : MonoBehaviour
             if (!playerHealth.HealthZero())
             {
                 isUnBeatTime = true;
-                playerHealth.ChangeHealth(patrolEnemy.Damage());
+                playerHealth.Damage(patrolEnemy.Damage());
                 StartCoroutine("UnBeatTime");
             }
         }
+        if (collision.gameObject.tag == "coin"&&!takecoin)
+        {
+            StartCoroutine("EarningCoins",collision);
+        }
+        if (collision.gameObject.tag == "potion"&&!takepotion)
+        {
+            StartCoroutine("HealthRecover", collision);
+        }
+        
     }
     bool IsBarrierOn()
     {
