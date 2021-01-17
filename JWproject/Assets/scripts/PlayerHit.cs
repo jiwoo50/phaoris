@@ -65,19 +65,24 @@ public class PlayerHit : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {;
-        if (collision.gameObject.tag == "enemy" && !collision.isTrigger && !isUnBeatTime&& !IsBarrierOn())
+        if (collision.gameObject.tag == "enemy" && !collision.isTrigger && !isUnBeatTime&& !barrier.isBarrierOn)
         {
-            PatrolEnemy patrolEnemy = collision.GetComponent<PatrolEnemy>();
-            HealthControl playerHealth = this.GetComponent<HealthControl>();
-            Vector2 attackedVelocity = Vector2.zero;
-            attackedVelocity = new Vector2(5.0f * transform.localScale.x * -1.0f, 5f);
-            rigidBody2d.AddForce(attackedVelocity, ForceMode2D.Impulse);
-            if (!playerHealth.HealthZero())
+            EnemyHit enemyHit = collision.gameObject.GetComponent<EnemyHit>();
+            if (!enemyHit.isDie)
             {
-                isUnBeatTime = true;
-                playerHealth.Damage(patrolEnemy.Damage());
-                StartCoroutine("UnBeatTime");
+                PatrolEnemy patrolEnemy = collision.GetComponent<PatrolEnemy>();
+                HealthControl playerHealth = this.GetComponent<HealthControl>();
+                Vector2 attackedVelocity = Vector2.zero;
+                attackedVelocity = new Vector2(5.0f * transform.localScale.x * -1.0f, 5f);
+                rigidBody2d.AddForce(attackedVelocity, ForceMode2D.Impulse);
+                if (!playerHealth.HealthZero())
+                {
+                    isUnBeatTime = true;
+                    playerHealth.Damage(patrolEnemy.Damage());
+                    StartCoroutine("UnBeatTime");
+                }
             }
+            
         }
         if (collision.gameObject.tag == "coin"&&!takecoin)
         {

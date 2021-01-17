@@ -9,6 +9,7 @@ TagManager:
   - ground
   - range
   - potion
+  - coin
   - goldCoin
   - blueCoin
   layers:

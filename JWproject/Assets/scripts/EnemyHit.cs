@@ -6,6 +6,7 @@ public class EnemyHit : MonoBehaviour
 {
     public GameObject[] items;
     public float[] percentage;
+    public bool isDie = false;
 
     bool isTrigger = false;
 
@@ -26,18 +27,23 @@ public class EnemyHit : MonoBehaviour
     
     IEnumerator Hurt()
     {
+        Vector2 nowPosition = rigidbody2D.position;
         isTrigger = true;
         animator.SetBool("isHurt", true);
+        if (healthControl.HealthZero())
+        {
+            isDie = true;
+        }
         patrolEnemy.setDirection=0;
         Knockback();
-        yield return new WaitForSeconds(0.21f);
+        yield return new WaitForSeconds(0.2f);
         animator.SetBool("isHurt", false);
         if (healthControl.HealthZero())
         {
             animator.SetBool("isDie", true);
-            yield return new WaitForSeconds(0.5f);
-            GameObject projectileObject = Instantiate(items[(int)ChooseItem()], rigidbody2D.position + Vector2.up * 0.5f, Quaternion.identity);
-            Destroy(this.gameObject);
+            yield return new WaitForSeconds(0.2f);
+            GameObject randomitems = Instantiate(items[(int)ChooseItem()], nowPosition + Vector2.up * 0.5f, Quaternion.identity);
+            Destroy(gameObject);
         }
         patrolEnemy.setDirection = patrolEnemy.SaveDirection() ;
         isTrigger = false;

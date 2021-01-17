@@ -22,7 +22,6 @@ public class MoveControl: MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         playerBarrierAttack = gameObject.GetComponent<PlayerBarrierAttack>();
     }
-
     private void Update()
     {
         if (rigidBody2d.velocity.y < 0|| isDown==true)
@@ -30,14 +29,12 @@ public class MoveControl: MonoBehaviour
             animator.SetBool("isDown", true);
             animator.SetBool("isRunning", false);
         }
-
         Vector3 moveVelocity = Vector3.zero;
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
             if(isWalking)
             animator.SetBool("isRunning", false);
         }
-        
         else if (Input.GetAxisRaw("Horizontal") < 0)
         {
             moveVelocity = Vector3.left;
@@ -45,7 +42,6 @@ public class MoveControl: MonoBehaviour
             if(isWalking)
             animator.SetBool("isRunning", true);
         }
-        
         else if (Input.GetAxisRaw("Horizontal") > 0)
         {
             moveVelocity = Vector3.right;
@@ -78,16 +74,12 @@ public class MoveControl: MonoBehaviour
             isJumping = false;
             isWalking = true;
         }
-        
     }
     public void StampAndJump()
     {
         if (playerBarrierAttack.BarrierState()&&(isJumping||rigidBody2d.velocity.y<0))
         {
-            Vector2 attackedVelocity = Vector2.zero;
-            attackedVelocity = new Vector2(0, 5f);
-            rigidBody2d.AddForce(attackedVelocity * 3.5f, ForceMode2D.Impulse);
-
+            rigidBody2d.velocity = new Vector2(0, rigidBody2d.velocity.y * -1.4f);
             playerBarrierAttack.BarrierOff();
             playerBarrierAttack.ChangeState(false);
         }
