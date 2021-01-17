@@ -52,23 +52,21 @@ public class MoveControl: MonoBehaviour
         }
         transform.position += moveVelocity * movePower * Time.deltaTime;
         
-        if (IsJump() && isJumping==false)
+        if (Input.GetButtonDown("Jump") && isJumping==false)
         {
             isJumping = true;
             animator.SetTrigger("isJumping");
             animator.SetBool("jumpFinish",false);
-            rigidBody2d.velocity = Vector2.zero;
-            Vector2 jumpVelocity = new Vector2(0, jumpPower);
-            rigidBody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
+            rigidBody2d.velocity = new Vector2(0, jumpPower);
         }
-    }
-    bool IsJump()
-    {
-        return Input.GetButtonDown("Jump");
+        if (Input.GetButtonUp("Jump"))
+        {
+            rigidBody2d.velocity = new Vector2(0, rigidBody2d.velocity.y* 0.3f);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 8 && rigidBody2d.velocity.y < 0)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("map") && rigidBody2d.velocity.y < 0)
         {
             animator.SetBool("jumpFinish", true);
             isJumping = false;
