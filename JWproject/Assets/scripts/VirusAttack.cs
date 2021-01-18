@@ -12,6 +12,7 @@ public class VirusAttack : MonoBehaviour
     bool fireOn = false;
     Rigidbody2D rigidbody2D;
     PatrolEnemy patrolEnemy;
+    Animator animator;
     GameObject parent ;
     
     private void Awake()
@@ -19,16 +20,18 @@ public class VirusAttack : MonoBehaviour
         parent = transform.parent.gameObject;
         rigidbody2D = parent.GetComponent<Rigidbody2D>();
         patrolEnemy = parent.GetComponent<PatrolEnemy>();
-        
+        animator = parent.GetComponent<Animator>();
     }
     
     IEnumerator Fire()
     {
         while (fireOn)
         {
+            animator.Play("Attack");
             GameObject projectileObject = Instantiate(VirusPrefab, rigidbody2D.position + Vector2.up * 0.5f, Quaternion.identity);
             Virus projectile = projectileObject.GetComponent<Virus>();
             projectile.Launch(direction, 300);
+            
             yield return new WaitForSeconds(0.5f);
         }
     }
