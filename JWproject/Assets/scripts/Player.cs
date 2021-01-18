@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MoveControl: MonoBehaviour
+public class Player: MonoBehaviour
 {
     public float movePower = 1.0f;
     public float jumpPower = 1.0f;
