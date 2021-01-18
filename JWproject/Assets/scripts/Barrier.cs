@@ -7,12 +7,13 @@ public class Barrier : MonoBehaviour
     public float damage = 1.0f;
     public GameObject player;
     public bool isBarrierOn = false;
-    MoveControl moveControl;
+
+    Player playerScript;
     PlayerBarrierAttack playerBarrierAttack;
     BarrierJump barrierJump;
     private void Awake()
     {
-        moveControl = player.GetComponent<MoveControl>();
+        playerScript = player.GetComponent<Player>();
         playerBarrierAttack = player.GetComponent<PlayerBarrierAttack>();
         barrierJump = player.GetComponent<BarrierJump>();
     }
@@ -28,7 +29,7 @@ public class Barrier : MonoBehaviour
     {
         if (collision.gameObject.tag == "enemy"&&playerBarrierAttack.BarrierState()&&!isBarrierOn)
         {
-            moveControl.StampAndJump();
+            playerScript.StampAndJump();
             JumpTime();
         }
     }

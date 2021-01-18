@@ -10,6 +10,7 @@ public class VirusAttack : MonoBehaviour
     float saveDirection;
     float direction;
     bool fireOn = false;
+
     Rigidbody2D rigidbody2D;
     PatrolEnemy patrolEnemy;
     Animator animator;

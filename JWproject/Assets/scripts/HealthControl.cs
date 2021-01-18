@@ -15,7 +15,7 @@ public class HealthControl : MonoBehaviour
     }
     public void Damage(float damage)
     {
-        health-=damage*infectionRate;
+        health=Mathf.Clamp(health - damage*infectionRate,0,maxHealth);
     }
     public bool HealthZero()
     {
@@ -28,7 +28,7 @@ public class HealthControl : MonoBehaviour
     }
     public void Recovery(float recovery)
     {
-        health += recovery;
+        health = Mathf.Clamp(recovery, 0, maxHealth);
     }
     public float NowHealth()
     {

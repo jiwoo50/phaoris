@@ -71,7 +71,7 @@ public class PlayerHit : MonoBehaviour
             if (!enemyHit.isDie)
             {
                 PatrolEnemy patrolEnemy = collision.GetComponent<PatrolEnemy>();
-                HealthControl playerHealth = this.GetComponent<HealthControl>();
+                HealthControl playerHealth = this.gameObject.GetComponent<HealthControl>();
                 Vector2 attackedVelocity = Vector2.zero;
                 attackedVelocity = new Vector2(5.0f * transform.localScale.x * -1.0f, 5f);
                 rigidBody2d.AddForce(attackedVelocity, ForceMode2D.Impulse);

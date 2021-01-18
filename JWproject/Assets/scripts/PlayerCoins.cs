@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerCoins : MonoBehaviour
 {
     public Text coinsText;
+
     int nowCoins;
     private void Awake()
     {
@@ -14,12 +15,12 @@ public class PlayerCoins : MonoBehaviour
     }
     public void Deposit(int deposit)
     {
-        nowCoins += deposit;
+        nowCoins = Mathf.Clamp(nowCoins+deposit, 0, 9999);
         coinsText.text = "Score : " + nowCoins.ToString();
     }
     public void WithDraw(int withdraw)
     {
-        nowCoins -= withdraw;
+        nowCoins = Mathf.Clamp(nowCoins-withdraw, 0, 9999);
         coinsText.text = "Coins : " + nowCoins.ToString();
     }
     public int NowCoinsValue()

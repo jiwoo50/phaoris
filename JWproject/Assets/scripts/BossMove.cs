@@ -8,7 +8,6 @@ public class BossMove : MonoBehaviour
 
     Rigidbody2D rigidbody2D;
     Animator animator;
-    // Start is called before the first frame update
     void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
