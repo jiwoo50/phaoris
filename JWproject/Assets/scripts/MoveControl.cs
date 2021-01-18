@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MoveControl: MonoBehaviour
 {
     public float movePower = 1.0f;
     public float jumpPower = 1.0f;
+    public Text healthText;
     
     bool isJumping = false;
     bool isWalking = false;
@@ -15,12 +18,14 @@ public class MoveControl: MonoBehaviour
     Rigidbody2D rigidBody2d;
     Animator animator;
     PlayerBarrierAttack playerBarrierAttack;
+    HealthControl healthControl;
 
     private void Start()
     {
         rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         playerBarrierAttack = gameObject.GetComponent<PlayerBarrierAttack>();
+        healthControl = this.gameObject.GetComponent<HealthControl>();
     }
     private void Update()
     {
@@ -63,6 +68,7 @@ public class MoveControl: MonoBehaviour
         {
             rigidBody2d.velocity = new Vector2(0, rigidBody2d.velocity.y* 0.3f);
         }
+        healthText.text = "HP :" + (healthControl.NowHealth()*10.0f).ToString()+"%";
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
