@@ -12,6 +12,9 @@ TagManager:
   - coin
   - goldCoin
   - blueCoin
+  - start
+  - virus
+  - boundary
   layers:
   - Default
   - TransparentFX

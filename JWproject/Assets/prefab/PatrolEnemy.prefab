@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 3133859977476425565}
   - component: {fileID: 5215471806445565086}
   - component: {fileID: 7712654395087560086}
-  - component: {fileID: 7712654395087560081}
   - component: {fileID: 7712654395087560107}
   - component: {fileID: 7712654395087560106}
-  - component: {fileID: 7712654395087560087}
+  - component: {fileID: 8298832887935469257}
   - component: {fileID: 7712654395087560104}
+  - component: {fileID: 8298832887935469248}
+  - component: {fileID: 8298832887935469249}
   m_Layer: 10
   m_Name: PatrolEnemy
   m_TagString: enemy
@@ -108,22 +109,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &7712654395087560081
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739439239936542005}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.03576851, y: 0.6146697}
-  m_Size: {x: 0.5529747, y: 1.2293394}
-  m_Direction: 0
 --- !u!70 &7712654395087560107
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -131,7 +116,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739439239936542005}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -159,19 +144,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7712654395087560087
-MonoBehaviour:
+--- !u!70 &8298832887935469257
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739439239936542005}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0147c5c6677b3f4e85616d11bbae007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.028837323, y: 0.6174091}
+  m_Size: {x: 0.28659987, y: 1.1721303}
+  m_Direction: 0
 --- !u!114 &7712654395087560104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,4 +172,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93833c4151da3f4bbb65ba3cba7de6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 1
+  maxInfectionRate: 1
+--- !u!114 &8298832887935469248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739439239936542005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f6ec10b85405e448771e8068348eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightMax: 3.5
+  leftMax: -3.5
+  setDirection: 3
+--- !u!114 &8298832887935469249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739439239936542005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c173f00299708f4a8ea6d97ba04ac9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 3751507418117992519, guid: 8428a063d3ddd8f4c8a9608904f821b0, type: 3}
+  - {fileID: 7409288219805379643, guid: bd44637b682ff0645835814e16742adc, type: 3}
+  - {fileID: 1412502786791239908, guid: c09ecf1bd9bf156448dd1ddccf2b00f9, type: 3}
+  - {fileID: 6155874027679158996, guid: 02d17551411ef1f4fa643a63ff53c05a, type: 3}
+  percentage:
+  - 0.5
+  - 0.3
+  - 0.15
+  - 0.05
+  isDie: 0
