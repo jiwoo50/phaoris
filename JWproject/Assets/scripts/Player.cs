@@ -13,6 +13,7 @@ public class Player: MonoBehaviour
     bool isJumping = false;
     bool isWalking = false;
     bool isDown = false;
+    bool death = false;
     Vector3 movement;
 
     Rigidbody2D rigidBody2d;
@@ -69,6 +70,20 @@ public class Player: MonoBehaviour
             rigidBody2d.velocity = new Vector2(0, rigidBody2d.velocity.y* 0.3f);
         }
         healthText.text = "HP :" + (healthControl.NowHealth()*10.0f).ToString()+"%";
+        if (healthControl.HealthZero())
+        {
+            if (!death)
+            {
+                animator.Play("Death");
+                Invoke("NewScene", 2.0f);
+                death = true;
+            }
+            
+        }
+    }
+    void NewScene()
+    {
+        SceneManager.LoadScene("AdventureScene");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

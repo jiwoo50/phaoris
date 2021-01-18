@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerHit : MonoBehaviour
 {
     public GameObject barrierObject;
@@ -81,8 +82,14 @@ public class PlayerHit : MonoBehaviour
                     playerHealth.Damage(patrolEnemy.Damage());
                     StartCoroutine("UnBeatTime");
                 }
+                
             }
             
+        }
+        if (collision.gameObject.tag == "boundary")
+        {
+            HealthControl playerHealth = this.gameObject.GetComponent<HealthControl>();
+            playerHealth.Damage(100);
         }
         if (collision.gameObject.tag == "coin"&&!takecoin)
         {
