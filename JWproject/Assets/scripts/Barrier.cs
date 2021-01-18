@@ -10,12 +10,10 @@ public class Barrier : MonoBehaviour
 
     Player playerScript;
     PlayerBarrierAttack playerBarrierAttack;
-    BarrierJump barrierJump;
     private void Awake()
     {
         playerScript = player.GetComponent<Player>();
         playerBarrierAttack = player.GetComponent<PlayerBarrierAttack>();
-        barrierJump = player.GetComponent<BarrierJump>();
     }
     void OnDisable()
     {
