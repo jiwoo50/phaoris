@@ -26,8 +26,4 @@ public class PlayerCoins : MonoBehaviour
     {
         return nowCoins;
     }
-    private void OnGUI()
-    {
-        GUI.Label(new Rect(100, 100, 200, 80),"Coins :" + nowCoins.ToString());
-    }
 }
